@@ -1,6 +1,9 @@
 body {
 	background: black;
 	color: white;
+	display: flex;
+    min-height: 100vh;
+    flex-direction: column;
 }
 
 h1 {
@@ -10,4 +13,12 @@ h1 {
 	font-family: 'Iceland', cursive;
 	font-size: 200px;
 	text-shadow: 3px 3px 3px rgba(82, 220, 150, 1);
+}
+
+main {
+	flex: 1 0 auto;
+}
+
+#firebaseui-auth-container {
+	color: black;
 }
