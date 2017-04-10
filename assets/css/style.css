@@ -1,0 +1,13 @@
+body {
+	background: black;
+	color: white;
+}
+
+h1 {
+	/*font-family: 'Signika', sans-serif;*/
+	/*font-family: 'Teko', sans-serif;*/
+	/*font-family: 'Monoton', cursive;*/
+	font-family: 'Iceland', cursive;
+	font-size: 200px;
+	text-shadow: 3px 3px 3px rgba(82, 220, 150, 1);
+}

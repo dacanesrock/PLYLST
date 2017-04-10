@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>PLYLST</title>
+	<!-- Bootstrap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <!-- google fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Iceland|Monoton|Signika:600|Teko:600" rel="stylesheet">
+    <!-- site css -->
+    <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+    <!-- firebase link + ui -->
+	<script src="https://www.gstatic.com/firebasejs/3.7.5/firebase.js"></script>
+	<script>
+	  // Initialize Firebase
+	  var config = {
+	    apiKey: "AIzaSyBlrvN583DloygRGjTplYvyIuW3FvcvFlg",
+	    authDomain: "plylst-e3afe.firebaseapp.com",
+	    databaseURL: "https://plylst-e3afe.firebaseio.com",
+	    projectId: "plylst-e3afe",
+	    storageBucket: "plylst-e3afe.appspot.com",
+	    messagingSenderId: "582577491741"
+	  };
+	  firebase.initializeApp(config);
+	</script>
+	<!-- firebase web ui -->
+	<script src="https://cdn.firebase.com/libs/firebaseui/1.0.1/firebaseui.js"></script>
+	<link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/1.0.1/firebaseui.css" />
+	<!-- bower -->
+	<script src="bower_components/firebaseui/dist/firebaseui.js"></script>
+	<link type="text/css" rel="stylesheet" href="bower_components/firebaseui/dist/firebaseui.css" />
+	<script type="text/javascript">
+      // FirebaseUI config.
+      var uiConfig = {
+        signInSuccessUrl: '/index',
+        signInOptions: [
+          // Leave the lines as is for the providers you want to offer your users.
+          firebase.auth.EmailAuthProvider.PROVIDER_ID
+        ],
+        // Terms of service url.
+        tosUrl: '<your-tos-url>'
+      };
+
+      // Initialize the FirebaseUI Widget using Firebase.
+      var ui = new firebaseui.auth.AuthUI(firebase.auth());
+      // The start method will wait until the DOM is loaded.
+      ui.start('#firebaseui-auth-container', uiConfig);
+    </script>
+</head>
+<body>
+	<h1 class="text-center">PLYLST</h1>
+	<div class="container">
+		<div class="col-md-8">
+			<p>welcome to PLYLST</p>
+			<p>the only tool you'll ever need to turn you valuable
+			last.fm data into wonderful spotify playlists!</p>
+		</div>
+		<div class="col-md-4">
+			<div id="firebaseui-auth-container">login block will go here</div>
+		</div>
+	</div>
+</body>
+</html>
