@@ -81,6 +81,45 @@
     // The start method will wait until the DOM is loaded.
     ui.start('#firebaseui-auth-container', uiConfig);
     </script>
+    <script type="text/javascript">
+        initApp = function() {
+            firebase.auth().onAuthStateChanged(function(user) {
+                if (user) {
+                    // User is signed in.
+                    var displayName = user.displayName;
+                    var email = user.email;
+                    var emailVerified = user.emailVerified;
+                    var photoURL = user.photoURL;
+                    var uid = user.uid;
+                    var providerData = user.providerData;
+                    user.getToken().then(function(accessToken) {
+                        document.getElementById('sign-in-status').textContent = 'Signed in';
+                        document.getElementById('sign-in').textContent = 'Sign out';
+                        document.getElementById('account-details').textContent = JSON.stringify({
+                            displayName: displayName,
+                            email: email,
+                            emailVerified: emailVerified,
+                            photoURL: photoURL,
+                            uid: uid,
+                            accessToken: accessToken,
+                            providerData: providerData
+                        }, null, '  ');
+                    });
+                } else {
+                    // User is signed out.
+                    document.getElementById('sign-in-status').textContent = 'Signed out';
+                    document.getElementById('sign-in').textContent = 'Sign in';
+                    document.getElementById('account-details').textContent = 'null';
+                }
+            }, function(error) {
+                console.log(error);
+            });
+        };
+
+    window.addEventListener('load', function() {
+        initApp()
+    });
+    </script>
 </head>
 
 <body>
@@ -88,6 +127,8 @@
         <div class="nav-wrapper teal lighten-2">
             <a href="index.html" class="brand-logo"><i class="material-icons">clear_all</i></a>
             <ul class="right hide-on-med-and-down">
+            	<li><button class="btn btn-primary"><div id="sign-in-status"></div></button></li>
+                <li><button class="btn btn-secondary"><div id="sign-in"></div></button></li>
                 <li><a href="create.html"><i class="material-icons">queue_music</i></a></li>
                 <li><a href="profile.html"><i class="material-icons">settings</i></a></li>
             </ul>
