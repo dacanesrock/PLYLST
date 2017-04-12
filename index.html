@@ -11,7 +11,6 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <!-- Bootstrap -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="style.css">
     <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <!-- google fonts -->
@@ -64,9 +63,7 @@
         signInSuccessUrl: 'profile.html',
         signInOptions: [
             // Leave the lines as is for the providers you want to offer your users.
-            firebase.auth.GoogleAuthProvider.PROVIDER_ID,
-            firebase.auth.FacebookAuthProvider.PROVIDER_ID,
-            firebase.auth.TwitterAuthProvider.PROVIDER_ID, {
+ {
                 provider: firebase.auth.EmailAuthProvider.PROVIDER_ID,
                 // Whether the display name should be displayed in the Sign Up page.
                 requireDisplayName: true
@@ -93,7 +90,7 @@
                     var uid = user.uid;
                     var providerData = user.providerData;
                     user.getToken().then(function(accessToken) {
-                        document.getElementById('sign-in-status').textContent = 'Signed in';
+                        document.getElementById('sign-in-status').textContent = 'Welcome ' + displayName + '!';
                         document.getElementById('sign-in').textContent = 'Sign out';
                         document.getElementById('account-details').textContent = JSON.stringify({
                             displayName: displayName,
@@ -125,21 +122,21 @@
 <body>
     <nav>
         <div class="nav-wrapper teal lighten-2">
-            <a href="index.html" class="brand-logo"><i class="material-icons">clear_all</i></a>
             <ul class="right hide-on-med-and-down">
             	<li><button class="btn btn-primary"><div id="sign-in-status"></div></button></li>
-                <li><button class="btn btn-secondary"><div id="sign-in"></div></button></li>
-                <li><a href="create.html"><i class="material-icons">queue_music</i></a></li>
-                <li><a href="profile.html"><i class="material-icons">settings</i></a></li>
+                <li><button class="btn btn-secondary" id="sign-in"></button></li>
+                <li><a id="createPlaylist"><i class="material-icons">queue_music</i></a></li>
+                <li><a id="userSettings"><i class="material-icons">settings</i></a></li>
             </ul>
         </div>
     </nav>
     <main>
         <h1 class="text-center">PLYLST</h1>
         <div class="container">
-            <div class="col-md-8">
-                <p>welcome to PLYLST</p>
-                <p>the only tool you'll ever need to turn you valuable last.fm data into wonderful spotify playlists!</p>
+            <div class="col-md-8 text-center">
+                <h2>welcome to PLYLST</h2>
+                <h3>the only tool you'll ever need to turn you valuable last.fm data into wonderful spotify playlists!</h3>
+                <h3>sign in to get started! --></h3>
             </div>
             <div class="col-md-4">
                 <div id="firebaseui-auth-container"></div>
@@ -150,7 +147,7 @@
         <div class="footer-copyright">
             <div class="container">
                 © 2017 Team Wozniak
-                <a class="grey-text text-lighten-4 right" href="about.html">About</a>
+                <p class="right">Powered By Spotify & Last.fm</p>
             </div>
         </div>
     </footer>

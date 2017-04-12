@@ -22,3 +22,10 @@ main {
 #firebaseui-auth-container {
 	color: black;
 }
+
+#artistGenerator,
+#albumGenerator,
+#trackGenerator {
+	padding: 5%;
+	margin: 2%;
+}

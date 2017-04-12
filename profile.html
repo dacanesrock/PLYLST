@@ -11,7 +11,6 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <!-- Bootstrap -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="style.css">
     <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <!-- google fonts -->
@@ -20,6 +19,7 @@
     <link rel="stylesheet" type="text/css" href="assets/css/style.css">
     <!-- firebase link + ui -->
     <script src="https://www.gstatic.com/firebasejs/3.7.5/firebase.js"></script>
+    <script type="text/javascript" src="assets/js/app.js"></script>
     <script>
     // Initialize Firebase
     var config = {
@@ -50,23 +50,14 @@
                     var uid = user.uid;
                     var providerData = user.providerData;
                     user.getToken().then(function(accessToken) {
-                        document.getElementById('sign-in-status').textContent = 'Signed in';
+                        document.getElementById('sign-in-status').textContent = displayName;
                         document.getElementById('sign-in').textContent = 'Sign out';
-                        document.getElementById('account-details').textContent = JSON.stringify({
-                            displayName: displayName,
-                            email: email,
-                            emailVerified: emailVerified,
-                            photoURL: photoURL,
-                            uid: uid,
-                            accessToken: accessToken,
-                            providerData: providerData
-                        }, null, '  ');
                     });
                 } else {
                     // User is signed out.
                     document.getElementById('sign-in-status').textContent = 'Signed out';
                     document.getElementById('sign-in').textContent = 'Sign in';
-                    document.getElementById('account-details').textContent = 'null';
+                    document.getElementById('buttonArea').textContent = 'null';
                 }
             }, function(error) {
                 console.log(error);
@@ -82,7 +73,6 @@
 <body>
     <nav>
         <div class="nav-wrapper teal lighten-2">
-            <a href="/index" class="brand-logo"><i class="material-icons">clear_all</i></a>
             <ul class="right hide-on-med-and-down">
                 <li><button class="btn btn-primary"><div id="sign-in-status"></div></button></li>
                 <li><button class="btn btn-secondary"><div id="sign-in"></div></button></li>
@@ -94,14 +84,37 @@
     <main>
         <h1 class="text-center">PLYLST</h1>
         <div class="container">
-            <div id="account-details"></div>
+            <div id="inputArea">
+              <div class="input-group-md">
+                <div class="input-group-btn">
+                  <input class="btn dropdown-toggle" placeholder="How many songs do you want on yr playlist?" list="limit" name="number">
+                  <datalist id="limit">
+                    <option value="10">
+                    <option value="20">
+                    <option value="30">
+                    <option value="40">
+                    <option value="50">
+                  </datalist>
+                </div>
+                <input class="form-control" id="lastUsername" type="input" placeholder="Last.fm Username">
+              </div>
+              
+              <div class="input-group-lg">
+                <button id="submitBtn" class="btn btn-primary">
+                Submit
+                </button>
+              </div>
+            </div>
+            <div id="buttonArea" class="text-center">
+              
+            </div>
         </div>
     </main>
     <footer class="page-footer teal lighten-2">
         <div class="footer-copyright">
             <div class="container">
                 © 2017 Team Wozniak
-                <a class="grey-text text-lighten-4 right" href="about.html">About</a>
+                <p class="right">Powered By Spotify & Last.fm</p>
             </div>
         </div>
     </footer>
