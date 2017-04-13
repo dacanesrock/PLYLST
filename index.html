@@ -3,6 +3,7 @@
 
 <head>
     <title>PLYLST</title>
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
     <!-- materialize -->
     <!-- Compiled and minified CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.1/css/materialize.min.css">
@@ -11,7 +12,6 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <!-- Bootstrap -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <!-- google fonts -->
     <link href="https://fonts.googleapis.com/css?family=Iceland|Monoton|Signika:600|Teko:600" rel="stylesheet">
@@ -19,114 +19,25 @@
     <link rel="stylesheet" type="text/css" href="assets/css/style.css">
     <!-- firebase link + ui -->
     <script src="https://www.gstatic.com/firebasejs/3.7.5/firebase.js"></script>
-    <script>
-    // Initialize Firebase
-    var config = {
-        apiKey: "AIzaSyBlrvN583DloygRGjTplYvyIuW3FvcvFlg",
-        authDomain: "plylst-e3afe.firebaseapp.com",
-        databaseURL: "https://plylst-e3afe.firebaseio.com",
-        projectId: "plylst-e3afe",
-        storageBucket: "plylst-e3afe.appspot.com",
-        messagingSenderId: "582577491741"
-    };
-    firebase.initializeApp(config);
-    </script>
     <!-- firebase web ui -->
     <script src="https://cdn.firebase.com/libs/firebaseui/1.0.1/firebaseui.js"></script>
     <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/1.0.1/firebaseui.css" />
-    <!-- bower -->
-    <script src="bower_components/firebaseui/dist/firebaseui.js"></script>
-    <link type="text/css" rel="stylesheet" href="bower_components/firebaseui/dist/firebaseui.css" />
-    <script type="text/javascript">
-    // FirebaseUI config.
-    var uiConfig = {
-        callbacks: {
-            signInSuccess: function(currentUser, credential, redirectUrl) {
-                // Do something.
-                // Return type determines whether we continue the redirect automatically
-                // or whether we leave that to developer to handle.
-                return true;
-            },
-            uiShown: function() {
-                // The widget is rendered.
-                // Hide the loader.
-                document.getElementById('loader').style.display = 'none';
-            }
-        },
-        credentialHelper: firebaseui.auth.CredentialHelper.ACCOUNT_CHOOSER_COM,
-        // Query parameter name for mode.
-        queryParameterForWidgetMode: 'mode',
-        // Query parameter name for sign in success url.
-        queryParameterForSignInSuccessUrl: 'signInSuccessUrl',
-        // Will use popup for IDP Providers sign-in flow instead of the default, redirect.
-        signInFlow: 'popup',
-        signInSuccessUrl: 'profile.html',
-        signInOptions: [
-            // Leave the lines as is for the providers you want to offer your users.
- {
-                provider: firebase.auth.EmailAuthProvider.PROVIDER_ID,
-                // Whether the display name should be displayed in the Sign Up page.
-                requireDisplayName: true
-            }
-        ],
-        // Terms of service url.
-        tosUrl: 'about.html'
-    };
-
-    // Initialize the FirebaseUI Widget using Firebase.
-    var ui = new firebaseui.auth.AuthUI(firebase.auth());
-    // The start method will wait until the DOM is loaded.
-    ui.start('#firebaseui-auth-container', uiConfig);
-    </script>
-    <script type="text/javascript">
-        initApp = function() {
-            firebase.auth().onAuthStateChanged(function(user) {
-                if (user) {
-                    // User is signed in.
-                    var displayName = user.displayName;
-                    var email = user.email;
-                    var emailVerified = user.emailVerified;
-                    var photoURL = user.photoURL;
-                    var uid = user.uid;
-                    var providerData = user.providerData;
-                    user.getToken().then(function(accessToken) {
-                        document.getElementById('sign-in-status').textContent = 'Welcome ' + displayName + '!';
-                        document.getElementById('sign-in').textContent = 'Sign out';
-                        document.getElementById('account-details').textContent = JSON.stringify({
-                            displayName: displayName,
-                            email: email,
-                            emailVerified: emailVerified,
-                            photoURL: photoURL,
-                            uid: uid,
-                            accessToken: accessToken,
-                            providerData: providerData
-                        }, null, '  ');
-                    });
-                } else {
-                    // User is signed out.
-                    document.getElementById('sign-in-status').textContent = 'Signed out';
-                    document.getElementById('sign-in').textContent = 'Sign in';
-                    document.getElementById('account-details').textContent = 'null';
-                }
-            }, function(error) {
-                console.log(error);
-            });
-        };
-
-    window.addEventListener('load', function() {
-        initApp()
-    });
-    </script>
+    <script type="text/javascript" src="assets/js/app.js"></script>
 </head>
 
 <body>
     <nav>
         <div class="nav-wrapper teal lighten-2">
             <ul class="right hide-on-med-and-down">
-            	<li><button class="btn btn-primary"><div id="sign-in-status"></div></button></li>
-                <li><button class="btn btn-secondary" id="sign-in"></button></li>
-                <li><a id="createPlaylist"><i class="material-icons">queue_music</i></a></li>
-                <li><a id="userSettings"><i class="material-icons">settings</i></a></li>
+                <li>
+                    <button class="btn btn-link" id="userDisplay">
+                    </button>
+                </li>
+                <li>
+                    <button id="btnLogout" class="btn btn-action hide">
+                        Log out
+                    </button>
+                </li>
             </ul>
         </div>
     </nav>
@@ -138,8 +49,39 @@
                 <h3>the only tool you'll ever need to turn you valuable last.fm data into wonderful spotify playlists!</h3>
                 <h3>sign in to get started! --></h3>
             </div>
-            <div class="col-md-4">
-                <div id="firebaseui-auth-container"></div>
+            <!-- this shows only when user is not logged in -->
+            <div id="loginBlock" class="col-md-4">
+                <h2>Login to get Started!</h2>
+                <input id="txtEmail" type="email" placeholder="Email">
+                <input id="txtPassword" type="password" placeholder="Password">
+                <button id="btnLogin" class="btn btn-action">
+                    Log In
+                </button>
+                <button id="btnSignUp" class="btn btn-secondary">
+                    Sign Up
+                </button>
+            </div>
+            <!-- this shows only when user is logged in -->
+            <div id="lastBlock" class="col-md-4 hide">
+                <h2>Welcome Back!</h2>
+                <input id='txtUsername' type='text' placeholder='Last.fm Username'>
+                <p>Playlist Length:
+                    <select class="form-control" title="Playlist Length">
+                        <option>10</option>
+                        <option>20</option>
+                        <option>30</option>
+                        <option>40</option>
+                        <option>50</option>
+                    </select>
+                </p>
+                <p>Playlist Type:
+                    <select class="form-control" title="Playlist Length">
+                        <option>Top Artists</option>
+                        <option>Top Tracks</option>
+                        <option>Top Albums</option>
+                    </select>
+                </p>
+                <button id='lastSubmit' class='btn btn-danger'>Generate Playlists!</button>
             </div>
         </div>
     </main>
