@@ -46,25 +46,40 @@
         <div class="container">
             <div class="col-md-8 text-center">
                 <h2>welcome to PLYLST</h2>
-                <h3>the only tool you'll ever need to turn you valuable last.fm data into wonderful spotify playlists!</h3>
-                <h3>sign in to get started! --></h3>
+                <ul class="collapsible popout" data-collapsible="accordion">
+                    <li>
+                        <div class="collapsible-header"><i class="material-icons">visibility</i>What is PLYLST?</div>
+                        <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
+                    </li>
+                    <li>
+                        <div class="collapsible-header"><i class="material-icons">whatshot</i>How do I use PLYLST?</div>
+                        <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
+                    </li>
+                    <li>
+                        <div class="collapsible-header"><i class="material-icons">report_problem</i>What about...</div>
+                        <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
+                    </li>
+                </ul>
             </div>
             <!-- this shows only when user is not logged in -->
             <div id="loginBlock" class="col-md-4">
-                <h2>Login to get Started!</h2>
+                <h2 id="loginMessage">Login to get Started!</h2>
+                <input id="txtUsername" type="text" placeholder="Enter Username" class="hide">
                 <input id="txtEmail" type="email" placeholder="Email">
                 <input id="txtPassword" type="password" placeholder="Password">
-                <button id="btnLogin" class="btn btn-action">
+                <div class="valign-wrapper" id="errorMessage"></div>
+                <button id="btnLogin" class="btn btn-action hoverable">
                     Log In
                 </button>
-                <button id="btnSignUp" class="btn btn-secondary">
+                <button id="btnSignUp" class="btn btn-primary hide hoverable">
                     Sign Up
                 </button>
+                <div id="signUpHandler"><a>Don't have an account yet?</a></div>
             </div>
             <!-- this shows only when user is logged in -->
             <div id="lastBlock" class="col-md-4 hide">
                 <h2>Welcome Back!</h2>
-                <input id='txtUsername' type='text' placeholder='Last.fm Username'>
+                <input id='txtLastUser' type='text' placeholder='Last.fm Username'>
                 <p>Playlist Length:
                     <select class="form-control" title="Playlist Length">
                         <option>10</option>
@@ -86,11 +101,11 @@
         </div>
     </main>
     <footer class="page-footer teal lighten-2">
-        <div class="footer-copyright">
+        
             <div class="container">
                 © 2017 Team Wozniak
                 <p class="right">Powered By Spotify & Last.fm</p>
-            </div>
+            
         </div>
     </footer>
 </body>

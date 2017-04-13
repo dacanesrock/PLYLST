@@ -19,6 +19,15 @@ main {
 	flex: 1 0 auto;
 }
 
+a {
+	cursor: pointer;
+	color: yellow;
+}
+
+.collapsible-header {
+	color: black;
+}
+
 #firebaseui-auth-container {
 	color: black;
 }
@@ -28,4 +37,14 @@ main {
 #trackGenerator {
 	padding: 5%;
 	margin: 2%;
+}
+
+#errorMessage {
+	margin: 1%;
+	padding-bottom: 3%;
+	color: red;
+}
+
+#signUpHandler {
+	padding-top: 12%;
 }
