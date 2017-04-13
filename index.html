@@ -1,113 +1,88 @@
 <!DOCTYPE html>
 <html>
-
 <head>
-    <title>PLYLST</title>
-    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-    <!-- materialize -->
-    <!-- Compiled and minified CSS -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.1/css/materialize.min.css">
-    <!-- Compiled and minified JavaScript -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.1/js/materialize.min.js"></script>
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <!-- Bootstrap -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <!-- google fonts -->
-    <link href="https://fonts.googleapis.com/css?family=Iceland|Monoton|Signika:600|Teko:600" rel="stylesheet">
-    <!-- site css -->
-    <link rel="stylesheet" type="text/css" href="assets/css/style.css">
-    <!-- firebase link + ui -->
-    <script src="https://www.gstatic.com/firebasejs/3.7.5/firebase.js"></script>
-    <!-- firebase web ui -->
-    <script src="https://cdn.firebase.com/libs/firebaseui/1.0.1/firebaseui.js"></script>
-    <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/1.0.1/firebaseui.css" />
-    <script type="text/javascript" src="assets/js/app.js"></script>
+	<title>Test searchs</title>
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+	
 </head>
-
+<container>
 <body>
-    <nav>
-        <div class="nav-wrapper teal lighten-2">
-            <ul class="right hide-on-med-and-down">
-                <li>
-                    <button class="btn btn-link" id="userDisplay">
-                    </button>
-                </li>
-                <li>
-                    <button id="btnLogout" class="btn btn-action hide">
-                        Log out
-                    </button>
-                </li>
-            </ul>
-        </div>
-    </nav>
-    <main>
-        <h1 class="text-center">PLYLST</h1>
-        <div class="container">
-            <div class="col-md-8 text-center">
-                <h2>welcome to PLYLST</h2>
-                <ul class="collapsible popout" data-collapsible="accordion">
-                    <li>
-                        <div class="collapsible-header"><i class="material-icons">visibility</i>What is PLYLST?</div>
-                        <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
-                    </li>
-                    <li>
-                        <div class="collapsible-header"><i class="material-icons">whatshot</i>How do I use PLYLST?</div>
-                        <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
-                    </li>
-                    <li>
-                        <div class="collapsible-header"><i class="material-icons">report_problem</i>What about...</div>
-                        <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
-                    </li>
-                </ul>
-            </div>
-            <!-- this shows only when user is not logged in -->
-            <div id="loginBlock" class="col-md-4">
-                <h2 id="loginMessage">Login to get Started!</h2>
-                <input id="txtUsername" type="text" placeholder="Enter Username" class="hide">
-                <input id="txtEmail" type="email" placeholder="Email">
-                <input id="txtPassword" type="password" placeholder="Password">
-                <div class="valign-wrapper" id="errorMessage"></div>
-                <button id="btnLogin" class="btn btn-action hoverable">
-                    Log In
-                </button>
-                <button id="btnSignUp" class="btn btn-primary hide hoverable">
-                    Sign Up
-                </button>
-                <div id="signUpHandler"><a>Don't have an account yet?</a></div>
-            </div>
-            <!-- this shows only when user is logged in -->
-            <div id="lastBlock" class="col-md-4 hide">
-                <h2>Welcome Back!</h2>
-                <input id='txtLastUser' type='text' placeholder='Last.fm Username'>
-                <p>Playlist Length:
-                    <select class="form-control" title="Playlist Length">
-                        <option>10</option>
-                        <option>20</option>
-                        <option>30</option>
-                        <option>40</option>
-                        <option>50</option>
-                    </select>
-                </p>
-                <p>Playlist Type:
-                    <select class="form-control" title="Playlist Length">
-                        <option>Top Artists</option>
-                        <option>Top Tracks</option>
-                        <option>Top Albums</option>
-                    </select>
-                </p>
-                <button id='lastSubmit' class='btn btn-danger'>Generate Playlists!</button>
-            </div>
-        </div>
-    </main>
-    <footer class="page-footer teal lighten-2">
-        
-            <div class="container">
-                © 2017 Team Wozniak
-                <p class="right">Powered By Spotify & Last.fm</p>
-            
-        </div>
-    </footer>
+	
 </body>
+</container>	
+
+	<script type="text/javascript">
+		var api_KEY = 'cec22954d115479e4a534ed3bd2c0e8e';
+		var currentUser = 'dacanesrock';
+		var currentTopAlbums;
+		var currentTopArtists;
+		var currentTopTracks;
+		var artist = "snoop dogg";
+		var searchLimit = 10;
+
+		// Search for top Albums
+	    var queryURL =  "http://ws.audioscrobbler.com/2.0/?method=user.gettopalbums&user="+currentUser+"&limit="+searchLimit+"&api_key="+api_KEY+"&format=json"
+
+	      // Performing an AJAX request with the queryURL
+	      $.ajax({
+	          url: queryURL,
+	          method: "GET"
+	        })
+	        // After data comes back from the request
+	        .done(function(response) {
+	          console.log(queryURL);
+
+	          console.log(response);
+	        })
+
+	    // Search for top Artists
+	    var queryURL =  "http://ws.audioscrobbler.com/2.0/?method=user.gettopartists&user="+currentUser+"&limit="+searchLimit+"&api_key="+api_KEY+"&format=json"
+
+	      // Performing an AJAX request with the queryURL
+	      $.ajax({
+	          url: queryURL,
+	          method: "GET"
+	        })
+	        // After data comes back from the request
+	        .done(function(response) {
+	          console.log(queryURL);
+
+	          console.log(response);
+	        })
+
+	     // Search for top Tracks
+	    var queryURL =  "http://ws.audioscrobbler.com/2.0/?method=user.gettoptracks&user="+currentUser+"&limit="+searchLimit+"&api_key="+api_KEY+"&format=json"
+
+	      // Performing an AJAX request with the queryURL
+	      $.ajax({
+	          url: queryURL,
+	          method: "GET"
+	        })
+	        // After data comes back from the request
+	        .done(function(response) {
+	          console.log(queryURL);
+
+	          console.log(response);
+	        })
+
+	     // Search for User INFO
+	    var queryURL =  "http://ws.audioscrobbler.com/2.0/?method=user.getinfo&user="+currentUser+"&api_key="+api_KEY+"&format=json"
+
+	      // Performing an AJAX request with the queryURL
+	      $.ajax({
+	          url: queryURL,
+	          method: "GET"
+	        })
+	        // After data comes back from the request
+	        .done(function(response) {
+	          console.log(queryURL);
+
+	          console.log(response);
+	          var results = response.user;
+	          console.log(results.name + "is AKA "+results.realname);
+	        })
+
+  	</script>
 
 </html>
