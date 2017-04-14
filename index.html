@@ -46,7 +46,7 @@
         <div class="container">
             <div class="col-md-8 text-center">
                 <h2>welcome to PLYLST</h2>
-                <ul class="collapsible popout" data-collapsible="accordion">
+                <ul id="aboutPopout" class="collapsible popout" data-collapsible="accordion">
                     <li>
                         <div class="collapsible-header"><i class="material-icons">visibility</i>What is PLYLST?</div>
                         <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
@@ -60,6 +60,9 @@
                         <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
                     </li>
                 </ul>
+                <div id="spotifyArea">
+                	
+                </div>
             </div>
             <!-- this shows only when user is not logged in -->
             <div id="loginBlock" class="col-md-4">
@@ -79,21 +82,27 @@
             <!-- this shows only when user is logged in -->
             <div id="lastBlock" class="col-md-4 hide">
                 <h2>Welcome Back!</h2>
-                <input id='txtLastUser' type='text' placeholder='Last.fm Username'>
+                <div class="input-group">
+                	<p>Last.fm Username
+                    <input id='txtLastUser' type='text' placeholder='Update Last.fm Username'>
+                    <button class="btn" id="userSubmit" type="submit">Save</button>
+                    </p>
+                    <div id="usernameContainer"></div>
+                </div>
                 <p>Playlist Length:
-                    <select class="form-control" title="Playlist Length">
-                        <option>10</option>
-                        <option>20</option>
-                        <option>30</option>
-                        <option>40</option>
-                        <option>50</option>
+                    <select id="playlistLength" class="form-control" title="Playlist Length">
+                        <option value="10">10</option>
+                        <option value="20">20</option>
+                        <option value="30">30</option>
+                        <option value="40">40</option>
+                        <option value="50">50</option>
                     </select>
                 </p>
                 <p>Playlist Type:
-                    <select class="form-control" title="Playlist Length">
-                        <option>Top Artists</option>
-                        <option>Top Tracks</option>
-                        <option>Top Albums</option>
+                    <select id="searchMethod" class="form-control" title="Playlist Type">
+                        <option value="gettopartists">Top Artists</option>
+                        <option value="gettoptracks">Top Tracks</option>
+                        <option value="gettopalbums">Top Albums</option>
                     </select>
                 </p>
                 <button id='lastSubmit' class='btn btn-danger'>Generate Playlists!</button>
@@ -101,11 +110,9 @@
         </div>
     </main>
     <footer class="page-footer teal lighten-2">
-        
-            <div class="container">
-                © 2017 Team Wozniak
-                <p class="right">Powered By Spotify & Last.fm</p>
-            
+        <div class="container">
+            © 2017 Team Wozniak
+            <p class="right">Powered By Spotify & Last.fm</p>
         </div>
     </footer>
 </body>
