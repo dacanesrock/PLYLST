@@ -42,7 +42,7 @@ $(document).ready(function() {
 
 
         var api_KEY = 'cec22954d115479e4a534ed3bd2c0e8e';
-        var queryURL = "http://ws.audioscrobbler.com/2.0/?method=user." + searchMethod + "&user=" + currentUser + "&limit=" + searchLimit + "&period=" + searchPeriod + "&api_key=" + api_KEY + "&format=json";
+        var queryURL = "https://ws.audioscrobbler.com/2.0/?method=user." + searchMethod + "&user=" + currentUser + "&limit=" + searchLimit + "&period=" + searchPeriod + "&api_key=" + api_KEY + "&format=json";
         var rank = "";
         var art = "";
         var track = "";
