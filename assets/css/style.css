@@ -45,10 +45,17 @@ a {
 	color: red;
 }
 
-#signUpHandler {
+#signUpHandler,
+.playlistData {
 	padding-top: 12%;
 }
 
-#usernameContainer {
+#usernameContainer,
+#aboutPopout {
 	padding-bottom: 5%;
+}
+
+#spotifyArea,
+#lastBlock {
+	padding-bottom: 10%;
 }

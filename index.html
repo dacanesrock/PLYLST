@@ -61,7 +61,10 @@
                     </li>
                 </ul>
                 <div id="spotifyArea">
-                	
+                	<table class="centered" id="playlistTable">
+                	<thead class="centered" id="playlistHeader"></thead>
+                	<tbody class="centered" id="playlistBody"></tbody>
+                	</table>
                 </div>
             </div>
             <!-- this shows only when user is not logged in -->
@@ -83,9 +86,9 @@
             <div id="lastBlock" class="col-md-4 hide">
                 <h2>Welcome Back!</h2>
                 <div class="input-group">
-                	<p>Last.fm Username
-                    <input id='txtLastUser' type='text' placeholder='Update Last.fm Username'>
-                    <button class="btn" id="userSubmit" type="submit">Save</button>
+                    <p>Last.fm Username
+                        <input id='txtLastUser' type='text' placeholder='Update Last.fm Username'>
+                        <button class="btn" id="userSubmit" type="submit">Save</button>
                     </p>
                     <div id="usernameContainer"></div>
                 </div>
@@ -98,10 +101,20 @@
                         <option value="50">50</option>
                     </select>
                 </p>
+                <p>Search Period:
+                    <select id="searchPeriod" class="form-control" title="Search Period">
+                        <option value="overall">All-time</option>
+                        <option value="7day">1 week</option>
+                        <option value="1month">1 month</option>
+                        <option value="3month">3 month</option>
+                        <option value="6month">6 month</option>
+                        <option value="12month">1 year</option>
+                    </select>
+                </p>
                 <p>Playlist Type:
                     <select id="searchMethod" class="form-control" title="Playlist Type">
-                        <option value="gettopartists">Top Artists</option>
                         <option value="gettoptracks">Top Tracks</option>
+                        <option value="gettopartists">Top Artists</option>
                         <option value="gettopalbums">Top Albums</option>
                     </select>
                 </p>
