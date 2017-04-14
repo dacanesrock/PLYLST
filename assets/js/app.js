@@ -17,7 +17,7 @@ $(document).ready(function() {
     var searchMethod = "gettopTracks";
     var currentUser = "dacanesrock";
     var trackList = [];
-    console.log(currentUser);
+    // console.log(currentUser);
 
     // change values on dropdown select
     console.log(searchLimit);
@@ -67,10 +67,10 @@ $(document).ready(function() {
     };
 
     function addTrack(rank, track, artist, art) {
-        console.log('rank: ' + rank);
-        console.log('track: ' + track);
-        console.log('artist: ' + artist);
-        console.log('art: ' + art);
+        // console.log('rank: ' + rank);
+        // console.log('track: ' + track);
+        // console.log('artist: ' + artist);
+        // console.log('art: ' + art);
         $("#playlistHeader").html("<th>#</th><th>Art</th><th>Title</th><th>Artist</th>");
         $("#playlistBody").append("<tr class='playlistData'>");
         $("#playlistBody").append("<td>" + rank + "</td>");
@@ -82,14 +82,13 @@ $(document).ready(function() {
     function getSpotifyId(track, artist) {
         var spotifyId = "";
         var queryURL = "https://api.spotify.com/v1/search?q=track%3A" + track + "+artist%3A" + artist + "&type=track&limit=1";
-        var uriArray = [];
 
         $.ajax({
                 url: queryURL,
                 method: "GET"
             })
             .done(function(response) {
-                console.log(response);
+                // console.log(response);
                 spotifyId = response.tracks.items["0"].uri;
                 trackList.push(spotifyId);
             })
@@ -131,7 +130,7 @@ $(document).ready(function() {
         const email = txtEmail.value;
         const pass = txtPassword.value;
         const auth = firebase.auth();
-        console.log(displayName);
+        // console.log(displayName);
         // sign in
         const promise = auth.createUserWithEmailAndPassword(email, pass);
         promise.catch(e => $("#errorMessage").html("<i class='valign small material-icons'>error</i>" + e.message));
@@ -174,8 +173,8 @@ $(document).ready(function() {
     // add a realtime listener
     firebase.auth().onAuthStateChanged(firebaseUser => {
         if (firebaseUser) {
-            console.log(firebaseUser);
-
+            console.log(firebaseUser.displayName);
+            currentUser = firebaseUser.displayName;
             //here i was trying to show username but was unable to 
             //keep it consistent across logins :(
             // firebaseUser.updateProfile ({
@@ -187,7 +186,7 @@ $(document).ready(function() {
             $("#userDisplay").show();
             $("#loginBlock").hide();
             $("#lastBlock").removeClass('hide');
-            $("#usernameContainer").html("<i class='material-icons'>done</i><button class='btn-link'>Saved Username = " + firebaseUser.displayName + "</button>");
+            $("#usernameContainer").html("<i class='material-icons'>grade</i><button class='btn-link'>Saved Username = " + firebaseUser.displayName + "</button>");
         } else {
             console.log('not logged in');
             $("#btnLogout").addClass('hide');
