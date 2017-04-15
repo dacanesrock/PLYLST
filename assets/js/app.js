@@ -17,7 +17,6 @@ $(document).ready(function() {
     var searchMethod = "gettopTracks";
     var currentUser = "dacanesrock";
     var trackList = [];
-    // console.log(currentUser);
 
     // change values on dropdown select
     console.log(searchLimit);
@@ -40,7 +39,6 @@ $(document).ready(function() {
         $("#connectSpotify").remove();
         trackList = [];
 
-
         var api_KEY = 'cec22954d115479e4a534ed3bd2c0e8e';
         var queryURL = "https://ws.audioscrobbler.com/2.0/?method=user." + searchMethod + "&user=" + currentUser + "&limit=" + searchLimit + "&period=" + searchPeriod + "&api_key=" + api_KEY + "&format=json";
         var rank = "";
@@ -62,22 +60,17 @@ $(document).ready(function() {
                 }
                 console.log(trackList);
             });
-            $("#spotifyArea").append("<button id='connectSpotify' class='waves-effect waves-light btn-large'>Connect to Spotify</button>");
-
+        $("#spotifyArea").append("<button id='connectSpotify' class='waves-effect waves-light btn-large'>Connect to Spotify</button>");
     };
 
     function addTrack(rank, track, artist, art) {
-        // console.log('rank: ' + rank);
-        // console.log('track: ' + track);
-        // console.log('artist: ' + artist);
-        // console.log('art: ' + art);
         $("#playlistHeader").html("<th>#</th><th>Art</th><th>Title</th><th>Artist</th>");
         $("#playlistBody").append("<tr class='playlistData'>");
         $("#playlistBody").append("<td>" + rank + "</td>");
         $("#playlistBody").append("<td><img src='" + art + "'></td>");
         $("#playlistBody").append("<td>" + track + "</td>");
         $("#playlistBody").append("<td>" + artist + "</td>");
-    }
+    };
 
     function getSpotifyId(track, artist) {
         var spotifyId = "";
@@ -126,11 +119,10 @@ $(document).ready(function() {
     $("#btnSignUp").on('click', e => {
         // get email and pass
         // TODO: CHECK EMAIL VALID
-        const displayName = txtUsername.value;
+        currentuser = txtUsername.value;
         const email = txtEmail.value;
         const pass = txtPassword.value;
         const auth = firebase.auth();
-        // console.log(displayName);
         // sign in
         const promise = auth.createUserWithEmailAndPassword(email, pass);
         promise.catch(e => $("#errorMessage").html("<i class='valign small material-icons'>error</i>" + e.message));
@@ -155,7 +147,6 @@ $(document).ready(function() {
     // add click event for username
     $("#userSubmit").on("click", function() {
         var user = firebase.auth().currentUser;
-        console.log(user);
 
         user.updateProfile({
             displayName: txtLastUser.value
@@ -167,33 +158,40 @@ $(document).ready(function() {
 
     // add click event on Playlist Generator
     $("#lastSubmit").on("click", function() {
-        displayPlaylist();
-    })
+            displayPlaylist();
+    });
+
+    setInterval(function() {
+        listener();
+    }, 1000);
 
     // add a realtime listener
-    firebase.auth().onAuthStateChanged(firebaseUser => {
-        if (firebaseUser) {
-            console.log(firebaseUser.displayName);
-            currentUser = firebaseUser.displayName;
-            //here i was trying to show username but was unable to 
-            //keep it consistent across logins :(
-            // firebaseUser.updateProfile ({
-            //     displayName: txtUsername.value
-            // });
-            $("#btnLogout").removeClass('hide');
-            $("#btnSignUp").addClass('hide');
-            $("#userDisplay").html(firebaseUser.email);
-            $("#userDisplay").show();
-            $("#loginBlock").hide();
-            $("#lastBlock").removeClass('hide');
-            $("#usernameContainer").html("<i class='material-icons'>grade</i><button class='btn-link'>Saved Username = " + firebaseUser.displayName + "</button>");
-        } else {
-            console.log('not logged in');
-            $("#btnLogout").addClass('hide');
-            $("#userDisplay").hide();
-            $("#lastBlock").addClass('hide');
-            $("#loginBlock").show();
-            $("#usernameContainer").empty();
-        }
-    });
+    function listener() {
+        firebase.auth().onAuthStateChanged(firebaseUser => {
+            if (firebaseUser) {
+                currentUser = firebaseUser.displayName;
+                //here i was trying to show username but was unable to 
+                //keep it consistent across logins :(
+                // firebaseUser.updateProfile ({
+                //     displayName: txtUsername.value
+                // });
+                $("#btnLogout").removeClass('hide');
+                $("#btnSignUp").addClass('hide');
+                $("#userDisplay").html(firebaseUser.email);
+                $("#userDisplay").show();
+                $("#loginBlock").hide();
+                $("#lastBlock").removeClass('hide');
+                $("#usernameContainer").html("<i class='material-icons'>grade</i><button class='btn-link'>Saved Username = " + firebaseUser.displayName + "</button>");
+            } else {
+                console.log('not logged in');
+                $("#btnLogout").addClass('hide');
+                $("#userDisplay").hide();
+                $("#lastBlock").addClass('hide');
+                $("#loginBlock").show();
+                $("#usernameContainer").empty();
+            }
+        });
+    };
+
+    listener();
 });
