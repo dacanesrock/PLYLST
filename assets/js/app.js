@@ -152,7 +152,7 @@ $(document).ready(function() {
             displayName: txtLastUser.value
         });
         $("#txtLastUser").text(user.displayName);
-        $("#usernameContainer").html("<i class='material-icons'>done</i><button class='btn-link'>Saved Username = " + user.displayName + "</button>");
+        $("#usernameContainer").html("<div class='card-panel teal'><i class='material-icons'>done</i>Saved Username: " + user.displayName + "</div>");
         currentUser = user.displayName;
     });
 
@@ -181,7 +181,7 @@ $(document).ready(function() {
                 $("#userDisplay").show();
                 $("#loginBlock").hide();
                 $("#lastBlock").removeClass('hide');
-                $("#usernameContainer").html("<i class='material-icons'>grade</i><button class='btn-link'>Saved Username = " + firebaseUser.displayName + "</button>");
+                $("#usernameContainer").html("<div class='card-panel teal'><i class='material-icons'>grade</i>Saved Username: " + firebaseUser.displayName + "</div>");
             } else {
                 console.log('not logged in');
                 $("#btnLogout").addClass('hide');
